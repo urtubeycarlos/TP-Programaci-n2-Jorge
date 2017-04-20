@@ -15,6 +15,7 @@ public class PPT {
 		elementos.add( new Elemento( elemento ) );
 		}
 	}
+	
 	public boolean yaExiste(String elemento){
 		boolean ret = false;
 		for(int i = 0 ; i < elementos.size() ; i++){
