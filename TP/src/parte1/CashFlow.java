@@ -5,16 +5,19 @@ import java.util.Stack;
 
 public class CashFlow {
 	private ArrayList<Registro> registros;
-	
+	private int acum = 0;  
+	private int cont = 1;  
 	private Integer saldo;	//saldo gral
-
+	private int [] [] soluciones;
 	private static Integer cantReg;
 	
 public CashFlow(){
 	saldo = 0;
 	cantReg = 0;
 	registros = new ArrayList<Registro>();
+
 }
+
 
 public void agregarRegistro(Registro r){
 	
@@ -30,8 +33,61 @@ public void agregarRegistro(Registro r){
 		throw new RuntimeException("saldo negativo!: " + saldo);
 	
 }
+public void iterativo(){ 
+	 
+	  int i;   int nn = (int)Math.pow(cantReg, cantReg); 
+	 
+	  int indice = 0;     
+	  
+	  while (indice<cantReg){
+		  for (i=0;i<nn;i++){
+			  soluciones [i][indice] = sigiente(indice,i);
+			  } 
+	 
+	   indice++;
+	   acum = 0;
+	   cont = 1;
+	   } 
+	 
+	  for (i=0;i<nn;i++){
+		  if (esSolucion(soluciones[i],cantReg)){
+			  imprimir(soluciones[i]);
+			  }
+		  }
+	  } 
 
+private int sigiente( int indice, int i){
+	int paso;
+	paso  = (int)(nn / Math.pow(cantReg, indice+1));
+	if (acum < paso){
+		acum++;
+		}
+	else{
+		acum = 1;
+		cont++;
+		if (cont > cantReg){
+			cont = 1;
+			}
+		}
+	return cont;
+	} 
 
+public boolean esSolucion(int [] v1, int hasta){
+	int [] v2  = new int [cantReg];
+	int ret=0;   int j;
+	for (j=0;j<cantReg;j++){
+		if (v1[j]-1>=0){
+			v2[v1[j]-1]++;
+			}
+		} 
+
+for (j=0;j<cantReg;j++){
+	if (v2[j]>0){
+		ret++;
+		}
+	}
+return ret>=hasta;
+}   
 public void minimizarDistanciaAcumulada(){
 	
 	//...
