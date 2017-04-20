@@ -7,14 +7,44 @@ public class CashFlow {
 	private ArrayList<Registro> registros; 
 	private Integer saldo;	//saldo gral
 	private static Integer cantReg;
-	
+	private int acum;
+	private int cont;
 public CashFlow(){
 	saldo = 0;
 	cantReg = 0;
 	registros = new ArrayList<Registro>();
-
+	
 }
-
+private int sigiente( int indice, int i){
+	int paso;
+	paso  = (int)(Math.pow(cantReg,cantReg) / Math.pow(cantReg, indice+1));
+	if (acum < paso){
+		acum++;
+		}
+	else{
+		acum = 1;
+		cont++;
+		if (cont > cantReg){
+			cont = 1;
+			}
+		}
+	return cont;     
+	}
+public void iterativo(int [][] matriz){  
+	  int i;
+	  int nn = (int)Math.pow(cantReg, cantReg);  
+	  int indice = 0;
+	  
+	  while (indice<cantReg){
+		  for (i=0;i<nn;i++){
+			  matriz [i][indice] = sigiente(indice,i);
+			  }  
+	   indice++;
+	   acum = 0;
+	   cont = 1;       
+	   }
+	 
+	  }  
 
 public void agregarRegistro(Registro r){
 	
@@ -31,8 +61,28 @@ public void agregarRegistro(Registro r){
 	
 }
 public void minimizarDistanciaAcumulada(){
-	
+	int [][] ordenes = new int [(int) Math.pow(cantReg, cantReg)][cantReg];
+	iterativo(ordenes);
+
 	//...
+}
+public boolean EsValida(int []fila){
+	boolean ret = true;
+	int acum = 0;
+	if ( fila[0] < 0){  // si el primero es menor a 0 no sirve
+		return false;
+	}
+	for (int i = 0 ; i < fila.length ; i++){
+		acum+=registros.get(fila[i]-1).importe;
+		ret = ret && acum>=0;
+	}
+	return ret;
+}
+public void controlador(int []fila){
+	
+	ArrayList<Integer> aux = new ArrayList<Integer>();
+	ArrayList<int[]> combinaciones = new ArrayList<int[]>();
+	int acum_saldo = 0;
 }
 
 public void forzarInvariante(){
