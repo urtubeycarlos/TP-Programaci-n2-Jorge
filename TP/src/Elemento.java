@@ -29,4 +29,9 @@ public class Elemento {
 	public String dameNombre(){
 		return this.nombre;
 	}
+	
+	public int tamañoDebiles()
+	{
+		return debiles.size();
+	}
 }
