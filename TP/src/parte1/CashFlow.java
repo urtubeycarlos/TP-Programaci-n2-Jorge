@@ -8,7 +8,7 @@ public class CashFlow {
 	private int acum = 0;  
 	private int cont = 1;  
 	private Integer saldo;	//saldo gral
-	private int [] [] soluciones;
+	private int nn;
 	private static Integer cantReg;
 	
 public CashFlow(){
@@ -33,61 +33,6 @@ public void agregarRegistro(Registro r){
 		throw new RuntimeException("saldo negativo!: " + saldo);
 	
 }
-public void iterativo(){ 
-	 
-	  int i;   int nn = (int)Math.pow(cantReg, cantReg); 
-	 
-	  int indice = 0;     
-	  
-	  while (indice<cantReg){
-		  for (i=0;i<nn;i++){
-			  soluciones [i][indice] = sigiente(indice,i);
-			  } 
-	 
-	   indice++;
-	   acum = 0;
-	   cont = 1;
-	   } 
-	 
-	  for (i=0;i<nn;i++){
-		  if (esSolucion(soluciones[i],cantReg)){
-			  imprimir(soluciones[i]);
-			  }
-		  }
-	  } 
-
-private int sigiente( int indice, int i){
-	int paso;
-	paso  = (int)(nn / Math.pow(cantReg, indice+1));
-	if (acum < paso){
-		acum++;
-		}
-	else{
-		acum = 1;
-		cont++;
-		if (cont > cantReg){
-			cont = 1;
-			}
-		}
-	return cont;
-	} 
-
-public boolean esSolucion(int [] v1, int hasta){
-	int [] v2  = new int [cantReg];
-	int ret=0;   int j;
-	for (j=0;j<cantReg;j++){
-		if (v1[j]-1>=0){
-			v2[v1[j]-1]++;
-			}
-		} 
-
-for (j=0;j<cantReg;j++){
-	if (v2[j]>0){
-		ret++;
-		}
-	}
-return ret>=hasta;
-}   
 public void minimizarDistanciaAcumulada(){
 	
 	//...
@@ -143,6 +88,48 @@ public void forzarInvariante(){
 public Integer saldo(){
 	return saldo;
 }
+private int sigiente( int indice, int i){
+	int paso;
+	paso  = (int)(nn / Math.pow(cantReg, indice+1));
+	if (acum < paso){
+		acum++;
+		}
+	else{   acum = 1;
+	cont++;
+	if (cont > cantReg){ 
+		cont = 1;
+		}
+	}
+	return cont;
+
+}
+public void iterativo(){ 
+	  int i;
+	  int nn = (int)Math.pow(cantReg, cantReg);
+	  int [][] soluciones =  new int [nn][cantReg];
+	 
+	  int indice = 0;
+	  while (indice<cantReg){
+		  for (i=0;i<nn;i++){
+			  soluciones [i][indice] = sigiente(indice,i);
+			  } 
+	 
+	   indice++;
+	   acum = 0;
+	   cont = 1;
+	   } 
+	 
+	  for (i=0;i<nn;i++){
+		  
+			  imprimir(soluciones[i]);
+			  }
+		  }
+private void imprimir(int [] v1){
+	for (int j=0;j<cantReg;j++){
+		System.out.print( v1[j]) ;
+		}
+	System.out.println("") ;
+	} 
 
 @Override
 public String toString(){
