@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class CashFlow {
-	private ArrayList<Registro> registros;
-	private int acum = 0;  
-	private int cont = 1;  
+	private ArrayList<Registro> registros; 
 	private Integer saldo;	//saldo gral
-	private int nn;
 	private static Integer cantReg;
 	
 public CashFlow(){
@@ -88,49 +85,6 @@ public void forzarInvariante(){
 public Integer saldo(){
 	return saldo;
 }
-private int sigiente( int indice, int i){
-	int paso;
-	paso  = (int)(nn / Math.pow(cantReg, indice+1));
-	if (acum < paso){
-		acum++;
-		}
-	else{   acum = 1;
-	cont++;
-	if (cont > cantReg){ 
-		cont = 1;
-		}
-	}
-	return cont;
-
-}
-public void iterativo(){ 
-	  int i;
-	  int nn = (int)Math.pow(cantReg, cantReg);
-	  int [][] soluciones =  new int [nn][cantReg];
-	 
-	  int indice = 0;
-	  while (indice<cantReg){
-		  for (i=0;i<nn;i++){
-			  soluciones [i][indice] = sigiente(indice,i);
-			  } 
-	 
-	   indice++;
-	   acum = 0;
-	   cont = 1;
-	   } 
-	 
-	  for (i=0;i<nn;i++){
-		  
-			  imprimir(soluciones[i]);
-			  }
-		  }
-private void imprimir(int [] v1){
-	for (int j=0;j<cantReg;j++){
-		System.out.print( v1[j]) ;
-		}
-	System.out.println("") ;
-	} 
-
 @Override
 public String toString(){
 	String ret = "";
