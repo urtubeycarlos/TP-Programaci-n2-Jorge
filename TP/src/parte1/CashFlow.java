@@ -15,7 +15,7 @@ public CashFlow(){
 	registros = new ArrayList<Registro>();
 	
 }
-private int sigiente( int indice, int i){
+private int sigiente( int indice){
 	int paso;
 	paso  = (int)(Math.pow(cantReg,cantReg) / Math.pow(cantReg, indice+1));
 	if (acum < paso){
@@ -37,7 +37,7 @@ public void iterativo(int [][] matriz){
 	  
 	  while (indice<cantReg){
 		  for (i=0;i<nn;i++){
-			  matriz [i][indice] = sigiente(indice,i);
+			  matriz [i][indice] = sigiente(indice);
 			  }  
 	   indice++;
 	   acum = 0;
@@ -62,28 +62,25 @@ public void agregarRegistro(Registro r){
 }
 public void minimizarDistanciaAcumulada(){
 	int [][] ordenes = new int [(int) Math.pow(cantReg, cantReg)][cantReg];
-	iterativo(ordenes);
+	ArrayList <int []> cola= new ArrayList< int[] >();
+	iterativo(ordenes); //n^n
+	  for (int i=0;i<(int) Math.pow(cantReg, cantReg);i++){
+			  imprimir(ordenes[i]);
+	}
+		
+}
+private void imprimir(int [] v1){
+	int cont=0;
+	for (int j=0;j<cantReg;j++){
+		System.out.print( v1[j]) ;
+	cont++;	
+	}
+	System.out.println("") ;
 
-	//...
 }
-public boolean EsValida(int []fila){
-	boolean ret = true;
-	int acum = 0;
-	if ( fila[0] < 0){  // si el primero es menor a 0 no sirve
-		return false;
-	}
-	for (int i = 0 ; i < fila.length ; i++){
-		acum+=registros.get(fila[i]-1).importe;
-		ret = ret && acum>=0;
-	}
-	return ret;
-}
-public void controlador(int []fila){
-	
-	ArrayList<Integer> aux = new ArrayList<Integer>();
-	ArrayList<int[]> combinaciones = new ArrayList<int[]>();
-	int acum_saldo = 0;
-}
+
+
+
 
 public void forzarInvariante(){
 	
