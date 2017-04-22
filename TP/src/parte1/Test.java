@@ -11,7 +11,14 @@ public class Test {
 		c1.agregarRegistro(new Registro(-100));
 		c1.agregarRegistro(new Registro(100));
 		c1.agregarRegistro(new Registro(-100));
+		
+		
+		
+		
+		c1.minimizarDistanciaAcumulada();
+		
 		System.out.println(c1);
+		
 		c1.forzarInvariante();
 		System.out.println(c1);
 		

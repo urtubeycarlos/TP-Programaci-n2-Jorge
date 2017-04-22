@@ -83,7 +83,8 @@ public class PPT {
 		juego.AgregarRegla("papel", "piedra");
 		juego.AgregarRegla("tijera", "papel");
 		
-		System.out.println(juego.Jugar("piedra","tijera"));
+//		System.out.println(juego.Jugar("piedra","tijera"));
+		System.out.println(Math.pow(4,4) / Math.pow(4, 0+1));
 	}
 
 }

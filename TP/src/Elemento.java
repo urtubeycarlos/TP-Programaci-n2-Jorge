@@ -30,8 +30,8 @@ public class Elemento {
 		return this.nombre;
 	}
 	
-	public int tamañoDebiles()
-	{
-		return debiles.size();
-	}
+//	public int tamañoDebiles()
+//	{
+//		return debiles.size();
+//	}
 }

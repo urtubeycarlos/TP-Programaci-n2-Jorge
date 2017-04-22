@@ -7,8 +7,8 @@ public class CashFlow {
 	private ArrayList<Registro> registros; 
 	private Integer saldo;	//saldo gral
 	private static Integer cantReg;
-	private int acum;
-	private int cont;
+	private int acum; //variables necesarias para el funcionamietno de Iterativo / siguiente
+	private int cont; //variables necesarias para el funcionamietno de Iterativo / siguiente
 public CashFlow(){
 	saldo = 0;
 	cantReg = 0;
@@ -17,9 +17,11 @@ public CashFlow(){
 }
 private int sigiente( int indice){
 	int paso;
+	//paso tiene el calculo que permite saber que valor va en cada fila/columna (lo vimos en clase)
 	paso  = (int)(Math.pow(cantReg,cantReg) / Math.pow(cantReg, indice+1));
+	// este codigo te va a resultar muy claro, solo fijate  que cont es el valor de retorno, siempre varia de 1 hasta n
 	if (acum < paso){
-		acum++;
+		acum++; 
 		}
 	else{
 		acum = 1;
@@ -31,15 +33,15 @@ private int sigiente( int indice){
 	return cont;     
 	}
 public void iterativo(int [][] matriz){  
-	  int i;
-	  int nn = (int)Math.pow(cantReg, cantReg);  
-	  int indice = 0;
+	  int i; 
+	  int nn = (int)Math.pow(cantReg, cantReg);  //tamaño de la matriz
+	  int indice = 0; //indice sirve para recorrer las columnas
 	  
 	  while (indice<cantReg){
-		  for (i=0;i<nn;i++){
-			  matriz [i][indice] = sigiente(indice);
+		  for (i=0;i<nn;i++){ //recorremos las filas
+			  matriz [i][indice] = sigiente(indice); //siguiente te da el valor que corresponde a cada columna
 			  }  
-	   indice++;
+	   indice++; //incrementamos el indice para llenar otra columna
 	   acum = 0;
 	   cont = 1;       
 	   }
@@ -61,11 +63,16 @@ public void agregarRegistro(Registro r){
 	
 }
 public void minimizarDistanciaAcumulada(){
+	//creamos una matriz vacia para despues llenarla
 	int [][] ordenes = new int [(int) Math.pow(cantReg, cantReg)][cantReg];
-	ArrayList <int []> cola= new ArrayList< int[] >();
-	iterativo(ordenes); //n^n
+	iterativo(ordenes); //n^n recorre por filas y las va llenando
 	  for (int i=0;i<(int) Math.pow(cantReg, cantReg);i++){
+		  //el for recorre siempe las filas
 			  imprimir(ordenes[i]);
+			  //hasta aca tenemos todas las posibles combinaciones
+			  //estas serian las fechas reales a asignar...
+			  //el problema esta en como validar las que sirve y despues como calcular la distancia acumulada
+			  //tengo unas ideas, pero no se si estan bien.. y no las pude desarrollar mucho(son muy vuelteras)
 	}
 		
 }
