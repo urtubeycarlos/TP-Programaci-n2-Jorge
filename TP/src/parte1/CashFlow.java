@@ -66,6 +66,22 @@ public void agregarRegistro(Registro r){
 	
 }
 public void minimizarDistanciaAcumulada(){
+	int acum_chequearSaldo = 0;
+	boolean elPrimerEsValido = true;
+	//en caso de que ya sea valido, lo dejamos como esta.
+	for( int i = 0 ; i<registros.size() ; i++){
+		acum_chequearSaldo = acum_chequearSaldo + registros.get(i).importe;
+		if(acum_chequearSaldo < 0){
+			System.out.println("entro en el false");
+			elPrimerEsValido = false; //ya no necesito seguir
+		}
+	}
+	if (elPrimerEsValido == true){
+		//asigno las fechas reales
+		for ( int i = 0 ; i < cantReg; i++){
+			registros.get(i).fechaReal = i;
+		}
+	}else{
 	//creamos una matriz vacia para despues llenarla
 	int [][] Combinaciones = new int [(int) Math.pow(cantReg, cantReg)][cantReg];
 	iterativo(Combinaciones); //n^n recorre por filas y las va llenando
@@ -79,6 +95,7 @@ public void minimizarDistanciaAcumulada(){
 	}
 	for (int i = 0 ; i< cantReg ; i++){
 		imprimir(Combinaciones[i]);
+	}
 	}
 		
 }
