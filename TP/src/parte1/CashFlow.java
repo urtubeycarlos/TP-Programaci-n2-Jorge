@@ -26,8 +26,8 @@ private int sigiente( int indice){
 	else{
 		acum = 1;
 		cont++;
-		if (cont > cantReg){
-			cont = 1;
+		if (cont > cantReg-1){ //para que no llegue a n(porq si hay n y tenemos fecha 0, la fecha n no exite)
+			cont = 0; //ultima modificacion, esto estaba en 1
 			}
 		}
 	return cont;     
@@ -43,8 +43,11 @@ public void iterativo(int [][] matriz){
 			  }  
 	   indice++; //incrementamos el indice para llenar otra columna
 	   acum = 0;
-	   cont = 1;       
+	   cont = 0;       
 	   }
+		for (int j = 0 ; j< nn ; j++){
+			imprimir(matriz[j]);
+		}
 	 
 	  }  
 
@@ -64,17 +67,100 @@ public void agregarRegistro(Registro r){
 }
 public void minimizarDistanciaAcumulada(){
 	//creamos una matriz vacia para despues llenarla
-	int [][] ordenes = new int [(int) Math.pow(cantReg, cantReg)][cantReg];
-	iterativo(ordenes); //n^n recorre por filas y las va llenando
-	  for (int i=0;i<(int) Math.pow(cantReg, cantReg);i++){
-		  //el for recorre siempe las filas
-			  imprimir(ordenes[i]);
-			  //hasta aca tenemos todas las posibles combinaciones
-			  //estas serian las fechas reales a asignar...
-			  //el problema esta en como validar las que sirve y despues como calcular la distancia acumulada
-			  //tengo unas ideas, pero no se si estan bien.. y no las pude desarrollar mucho(son muy vuelteras)
+	int [][] Combinaciones = new int [(int) Math.pow(cantReg, cantReg)][cantReg];
+	iterativo(Combinaciones); //n^n recorre por filas y las va llenando
+	//reducimos la matriz a un ArrayList con las combinaciones validas
+	ArrayList <int []>CombinacionesValidas = CombinacionesValidas(Combinaciones);
+	//ahora solo queda elegir una :D
+	int [] MejorCombinacion = MejorOpcion(CombinacionesValidas);
+	//ahora asignamos las fechas reales
+	for( int i = 0; i<cantReg ; i++){
+		registros.get(i).fechaReal = MejorCombinacion[i];
+	}
+	for (int i = 0 ; i< cantReg ; i++){
+		imprimir(Combinaciones[i]);
 	}
 		
+}
+
+//metodo que elige la mejor combinacion
+//hay que recorrerlos y quedarse con la mejor distAcumulada.
+//como comparo las distancias?
+public int [] MejorOpcion(ArrayList<int[]>combinacionesvalidas){
+	//tomamos el primero. similara el metodo BucarMenor(int [])
+	int IndiceDelMejor = 0; //como partimos del primero
+	
+	int distanciaAcum = DistanciaAcumulada(combinacionesvalidas.get(0)); // la mejor, partiendo de la primera
+	
+	//vamos a generar un arrayList con todas las distancias(relacion por indice)
+	for ( int i = 0 ; i < combinacionesvalidas.size() ; i++){ //no se cuantas iteraciones hace. pero en el peor caso es n^n -n
+		if ( distanciaAcum > DistanciaAcumulada(combinacionesvalidas.get(i))){
+			distanciaAcum =  DistanciaAcumulada(combinacionesvalidas.get(i));
+			IndiceDelMejor = i;
+		}
+	}
+	return combinacionesvalidas.get(IndiceDelMejor);
+}
+//metodo que retorna la distancia acumulada de una posible combinacion
+public int DistanciaAcumulada(int [] fechasReales){
+	int ret = 0;
+	for ( int i = 0; i < fechasReales.length ; i++){
+		System.out.println("mira que cagada"+registros.get(i).fecha+"y las reales: "+fechasReales[i]);
+		int diferencia = registros.get(i).fecha - fechasReales[i];
+		if(diferencia < 0){
+			diferencia = diferencia *(-1); //yo quiero la distancia
+		}
+		
+		ret =  ret + (diferencia);
+		System.out.println("Distancia acumulada  :"+ret);
+	}
+	System.out.println("--------------------------------------");
+	return ret;
+}
+
+// tengo que crear un arrayList con las combinaciones posibles
+
+public ArrayList<int[]> CombinacionesValidas(int[][] matriz){
+	ArrayList<int []> ret= new ArrayList<int []>(); //aca van las validas
+	//recorro cada fila de la matriz para poder validarlas
+	for ( int i = 0 ; i <matriz.length ; i++){// n^n iteraciones(tamaño de la matriz)
+		if(!TodosIguales(matriz[i])){ // se puede unir con el el otro if
+		if (SaldoPositivo(matriz[i])){
+			ret.add(matriz[i]);
+		}
+	}
+	}
+	return ret;
+}
+public boolean TodosIguales(int [] combinacion){
+	boolean ret = true;
+	for (int i = 0 ; i < combinacion.length ; i++){
+		ret = ret && (combinacion[0] == combinacion[i]);
+	}
+	return ret;
+}
+//mi objetivo con este metodo es contrar las combinaciones valida, y pasarlas a un array
+public boolean SaldoPositivo(int [] fila){
+//es un metodo que no me gusta, pero es lo que se me ocurrio
+	int Saldo = 0;
+	int SaldoFechas = 0; //soluciona el hecho de que haya muchas fechas reales iguales
+	int FechaReal = 1;  // asi podemos tomar todas las que sean 1, 2, 3 , 4
+	while( FechaReal < cantReg){
+	for (int i = 0 ; i < fila.length ; i++){ //n iteraciones
+		if( fila[i] == FechaReal){ //n iteraciones
+			SaldoFechas = SaldoFechas + registros.get(i).importe;
+		}
+	}
+	//control de que todo va bien
+	if (SaldoFechas >= 0){
+		Saldo = Saldo +  SaldoFechas;
+	}else{//sino, ya es falso
+		return false;
+	}
+	FechaReal++;
+	SaldoFechas = 0;
+	}
+	return true;
 }
 private void imprimir(int [] v1){
 	int cont=0;

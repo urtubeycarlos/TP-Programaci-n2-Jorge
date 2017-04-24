@@ -18,22 +18,36 @@ public class Test {
 		c1.minimizarDistanciaAcumulada();
 		
 		System.out.println(c1);
+		CashFlow c2 = new CashFlow();
 		
-		c1.forzarInvariante();
-		System.out.println(c1);
-		
-		
-		CashFlow c2 = new CashFlow(); // no cumplira el invariante
-		// para ningun orden posible
 		
 		c2.agregarRegistro(new Registro(100));
 		c2.agregarRegistro(new Registro(-100));
 		c2.agregarRegistro(new Registro(100));
-		c2.agregarRegistro(new Registro(-101));
+		c2.agregarRegistro(new Registro(-100));
 		
+		
+		
+		
+		c2.forzarInvariante();
+		
+		System.out.println(c2);
+//
+//		c1.forzarInvariante();
+//		System.out.println(c1);
+		
+//		
+//		CashFlow c2 = new CashFlow(); // no cumplira el invariante
+//		// para ningun orden posible
+//		
+//		c2.agregarRegistro(new Registro(100));
+//		c2.agregarRegistro(new Registro(-100));
+//		c2.agregarRegistro(new Registro(100));
+//		c2.agregarRegistro(new Registro(-101));
+//		
 //		c2.forzarInvariante();
 //		System.out.println(c2);
-			
+//			
 				
 	}
 
