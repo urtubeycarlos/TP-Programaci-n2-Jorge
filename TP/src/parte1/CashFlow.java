@@ -45,9 +45,7 @@ public void iterativo(int [][] matriz){
 	   acum = 0;
 	   cont = 0;       
 	   }
-		for (int j = 0 ; j< nn ; j++){
-			imprimir(matriz[j]);
-		}
+
 	 
 	  }  
 
@@ -93,9 +91,7 @@ public void minimizarDistanciaAcumulada(){
 	for( int i = 0; i<cantReg ; i++){
 		registros.get(i).fechaReal = MejorCombinacion[i];
 	}
-	for (int i = 0 ; i< cantReg ; i++){
-		imprimir(Combinaciones[i]);
-	}
+
 	}
 		
 }
@@ -179,15 +175,7 @@ public boolean SaldoPositivo(int [] fila){
 	}
 	return true;
 }
-private void imprimir(int [] v1){
-	int cont=0;
-	for (int j=0;j<cantReg;j++){
-		System.out.print( v1[j]) ;
-	cont++;	
-	}
-	System.out.println("") ;
 
-}
 
 
 
