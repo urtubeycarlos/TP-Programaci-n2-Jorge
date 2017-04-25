@@ -36,7 +36,7 @@ public class CashFlow {
 		return cont;     
 	}
 
-	public void iterativo(int [][] matriz){  
+	public void crearCombinaciones(int [][] matriz){  
 		  int i; 
 		  int nn = (int)Math.pow(cantReg, cantReg);  //tama�o de la matriz
 		  int indice = 0; //indice sirve para recorrer las columnas
@@ -85,7 +85,7 @@ public class CashFlow {
 		}else{
 			//creamos una matriz vacia para despues llenarla
 			int [][] Combinaciones = new int [(int) Math.pow(cantReg, cantReg)][cantReg];
-			iterativo(Combinaciones); //n^n recorre por filas y las va llenando
+			crearCombinaciones(Combinaciones); //n^n recorre por filas y las va llenando
 			//reducimos la matriz a un ArrayList con las combinaciones validas
 			ArrayList <int []>CombinacionesValidas = CombinacionesValidas(Combinaciones);
 			//ahora solo queda elegir una :D
