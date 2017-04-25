@@ -47,7 +47,8 @@ public class Test {
 //		
 //		c2.forzarInvariante();
 //		System.out.println(c2);
-//			
+//
+//
 				
 	}
 
