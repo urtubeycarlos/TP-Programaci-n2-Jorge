@@ -56,7 +56,7 @@ public class PPT {
 		//valido el invariante
 		//validar que no exista un elemento?
 		if (!yaExiste(elemento1) || !yaExiste(elemento2) ){
-			throw new IllegalArgumentException("algun elemento no existe");
+			throw new IllegalArgumentException("Se intentó jugar con un elemento inexistente");
 		}
 		Elemento a = elementos.get(DameIndice(elemento1));
 		Elemento b =  elementos.get(DameIndice(elemento2));
@@ -70,7 +70,6 @@ public class PPT {
 			return 2;
 		}
 		//si no hay ganador, es porque son iguales. por lo tanto empatan
-		//throw new IllegalArgumentException("No se puede determinar un resultado valido");
 		return 0;
 	}
 	
