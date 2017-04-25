@@ -3,10 +3,10 @@
 
 import java.util.ArrayList;
 
-public class PPT {
+public class PPTLS {
 	private ArrayList<Elemento> elementos;
 	
-	public PPT(){
+	public PPTLS(){
 		this.elementos=new ArrayList<Elemento>();
 	}
 	//valida el invariante, no admitimos repetidos
@@ -69,20 +69,8 @@ public class PPT {
 		if ( b.Ganador(a) ){
 			return 2;
 		}
-		//si no hay ganador, es porque son iguales. por lo tanto empatan
-		return 0;
-	}
-	
-	public static void main( String args []){
-		PPT juego= new PPT();
-		juego.AgregarElemento("piedra");
-		juego.AgregarElemento("papel");
-		juego.AgregarElemento("tijera");
-		juego.AgregarRegla("piedra", "tijera");
-		juego.AgregarRegla("papel", "piedra");
-		juego.AgregarRegla("tijera", "papel");
 		
-		System.out.println(juego.Jugar("piedra","tijera"));
+		throw new IllegalArgumentException("No se pudo determinar un ganador");
+		
 	}
-
 }
