@@ -36,7 +36,8 @@ public class CashFlow {
 		return cont;     
 	}
 
-	public void crearCombinaciones(int [][] matriz){  
+	public void crearCombinaciones(int [][] matriz){
+		
 		  int i; 
 		  int nn = (int)Math.pow(cantReg, cantReg);  //tama�o de la matriz
 		  int indice = 0; //indice sirve para recorrer las columnas
@@ -49,7 +50,7 @@ public class CashFlow {
 		   indice++; //incrementamos el indice para llenar otra columna
 		   acum = 0;
 		   cont = 0;       
-		   }
+		  }
 	 }  
 
 	public void agregarRegistro(Registro r){
@@ -67,6 +68,7 @@ public class CashFlow {
 	}
 	
 	public void minimizarDistanciaAcumulada(){
+		
 		int acum_chequearSaldo = 0;
 		boolean elPrimerEsValido = true;
 		//en caso de que ya sea valido, lo dejamos como esta.
