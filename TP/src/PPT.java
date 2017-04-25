@@ -78,13 +78,12 @@ public class PPT {
 		PPT juego= new PPT();
 		juego.AgregarElemento("piedra");
 		juego.AgregarElemento("papel");
-//		juego.AgregarElemento("tijera");
+		juego.AgregarElemento("tijera");
 		juego.AgregarRegla("piedra", "tijera");
 		juego.AgregarRegla("papel", "piedra");
 		juego.AgregarRegla("tijera", "papel");
 		
-//		System.out.println(juego.Jugar("piedra","tijera"));
-		System.out.println(Math.pow(4,4) / Math.pow(4, 0+1));
+		System.out.println(juego.Jugar("piedra","tijera"));
 	}
 
 }

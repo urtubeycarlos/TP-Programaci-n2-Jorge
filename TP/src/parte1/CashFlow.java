@@ -70,7 +70,7 @@ public void minimizarDistanciaAcumulada(){
 	for( int i = 0 ; i<registros.size() ; i++){
 		acum_chequearSaldo = acum_chequearSaldo + registros.get(i).importe;
 		if(acum_chequearSaldo < 0){
-			System.out.println("entro en el false");
+
 			elPrimerEsValido = false; //ya no necesito seguir
 		}
 	}
@@ -118,16 +118,14 @@ public int [] MejorOpcion(ArrayList<int[]>combinacionesvalidas){
 public int DistanciaAcumulada(int [] fechasReales){
 	int ret = 0;
 	for ( int i = 0; i < fechasReales.length ; i++){
-		System.out.println("mira que cagada"+registros.get(i).fecha+"y las reales: "+fechasReales[i]);
 		int diferencia = registros.get(i).fecha - fechasReales[i];
 		if(diferencia < 0){
 			diferencia = diferencia *(-1); //yo quiero la distancia
 		}
 		
 		ret =  ret + (diferencia);
-		System.out.println("Distancia acumulada  :"+ret);
 	}
-	System.out.println("--------------------------------------");
+	
 	return ret;
 }
 
